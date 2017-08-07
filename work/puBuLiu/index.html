@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>瀑布流</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        #box {
+            zoom: 1;
+            width: 54%;
+margin: auto;
+        }
+
+            #box:after {
+                display: block;
+                content: '';
+                clear: both;
+            }
+
+            #box ul {
+                width: 29%;
+                float: left;
+            }
+
+                #box ul li {
+                    width: 95%;
+                    margin: 8px;
+                }
+
+                    #box ul li img {
+                        width: 100%;
+                    }
+    </style>
+    <script type="text/javascript">
+        //获取随机数的方法
+        function getRandom(n, m) {
+            return parseInt(Math.random() * (m - n) + n);
+        }
+
+        window.onload = function () {
+            var oBox = document.getElementById('box');
+            var aUl = oBox.getElementsByTagName('ul');
+
+            var count = 0;
+
+            //创建 li 的方法
+            function createLi() {
+                //循环创建li
+                for (var i = 0; i < 20; i++) {
+                    //创建一个li元素
+                    var oLi = document.createElement('li');
+                    count++;
+                    if (count>=114) {
+                        alert("图片加载完了！");
+                        return;
+                    }
+                    //添加图片
+                    var oImg = document.createElement('img');
+                    oImg.src = 'img/img (' + count + ').jpg';
+                    oLi.appendChild(oImg);
+                    //给li设置随机高度
+                    //oLi.style.height = getRandom(200, 501) + 'px';
+                    //给li设置随机背景色
+                    //oLi.style.background = 'rgb(' + getRandom(1, 256) + ',' + getRandom(1, 256) + ',' + getRandom(1, 256) + ')';
+
+                    //把li添加到指定的ul 中
+
+                    //创建一个数组
+                    var arr = [];
+                    //把aUl ul 对象添加到arr 数组中，
+                    for (var j = 0; j < aUl.length; j++) {
+                        arr[j] = aUl[j];
+                    }
+                    //给arr里的ul对象，按照 内容高度从小到大排序
+                    arr.sort(function (ul1, ul2) {
+                        return ul1.scrollHeight - ul2.scrollHeight;
+                    })
+                    //li追加到高度最小的ul 中
+                    arr[0].appendChild(oLi);
+                }
+            }
+
+            createLi();
+
+            //滚动条滚动的事件
+            window.onscroll = function () {
+
+                //获取滚动调距离浏览器顶部的高度
+                var scrollH = document.documentElement.scrollTop || document.body.scrollTop;
+                //获取页面可视区的高度
+                var tH = document.documentElement.clientHeight;
+                //获取body 的内容高度
+                var bodyH = document.body.scrollHeight;
+                //判断 滚动条距离浏览器顶部的高度 + 页面可视区高度  >= body的内容高度
+                if ((scrollH + tH) >= bodyH) {
+                    createLi();
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="box">
+        <ul></ul>
+        <ul></ul>
+        <ul></ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>碰撞运动练习_小球</title>
+    <style>
+        body {
+            background: #ccc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        #box {
+            width: 600px;
+            height: 462px;
+            border: 1px solid #333;
+            margin: 30px auto;
+            position: relative;
+        }
+
+            #box .boll {
+                display: inline-block;
+                width: 50px;
+                height: 50px;
+                background: red;
+                border-radius: 50%;
+                position: absolute;
+                left: 0px;
+                top: 0;
+            }
+    </style>
+
+    <script type="text/javascript">
+        window.onload = function () {
+            var oBox = document.getElementById('box');
+            var oBoll = document.getElementById('boll');
+
+
+            var count = 0;
+            //定时器 创建小球
+            var timer = setInterval(function () {
+                count++;
+                var oBoll = document.createElement('div');
+                oBoll.className = 'boll'
+
+                //随机大小
+                var n = rnd(50, 200);
+                oBoll.style.width = n + 'px';
+                oBoll.style.height = n + 'px';
+
+                //随机颜色
+                oBoll.style.background = 'rgb(' + rnd(0, 256) + ',' + rnd(0, 256) + ',' + rnd(0, 256) + ')';
+
+
+                oBox.appendChild(oBoll);
+
+                dounce(oBoll, oBox, 10, 10);
+                dragBounce(oBoll, oBox);
+
+                console.log(count)
+                if (count == 10) {
+                    clearInterval(timer);
+                }
+            }, 200)
+
+
+
+
+
+
+
+
+            //随机数方法
+            function rnd(n, m) {
+                return parseInt(Math.random() * (m - n) + n);
+            }
+
+
+            //拖动碰撞 方法
+            function dragBounce(obj, pObj) {
+                //存放小球拖x动时候的运动速度
+                var dragSpeedX = 0;
+                var dragSpeedY = 0;
+                //存放小球拖动时候最后一次的位置
+                var lastX = 0;
+                var lastY = 0;
+
+                //小球的鼠标按下事件
+                obj.onmousedown = function (ev) {
+                    var oFrom = ev.fromElement || ev.relatedTarget;
+                    console.log(oFrom);
+
+                    var oEvent = ev || event;
+                    var disX = oEvent.clientX - obj.offsetLeft;
+                    var disY = oEvent.clientY - obj.offsetTop;
+                    //关闭定时器
+                    clearInterval(obj.timer);
+
+                    //小球的鼠标移动事件
+                    document.onmousemove = function (ev) {
+                        var oEvent = ev || event;
+                        //计算出小球要移动的位置
+                        var x = oEvent.clientX - disX;
+                        var y = oEvent.clientY - disY;
+
+                        obj.style.left = x + 'px';
+                        obj.style.top = y + 'px';
+
+                        //计算出移动的速度 = 当前的位置  - 上一次的移动位置
+                        dragSpeedX = ev.clientX - lastX;
+                        dragSpeedY = ev.clientY - lastY;
+
+                        //把当前小球移动的位置记录下来
+                        lastX = ev.clientX;
+                        lastY = ev.clientY;
+                    }
+
+                    //小球的鼠标移开事件
+                    document.onmouseup = function () {
+                        document.onmousedown = null;
+                        document.onmousemove = null;
+
+                        //调用碰撞的方法
+                        dounce(obj, pObj, dragSpeedX, dragSpeedY);
+                    }
+
+                    return false;
+                }
+            }
+
+            //碰撞方法
+            function dounce(obj, pObj, speedX, speedY) {
+
+                //默认的速度和默认的位置
+                //var speedX = 10;
+                //var speedY = 10;
+                var l = 0;
+                var t = 0;
+
+                //最大宽度 he 最大高度
+                var maxX = pObj.offsetWidth - obj.offsetWidth;
+                var maxY = pObj.offsetHeight - obj.offsetHeight;
+
+                //关闭定时器
+                clearInterval(obj.timer);
+                //创建定时器
+                obj.timer = setInterval(function () {
+                    //向下加速
+                    speedY++;
+
+                    //算出 定位位置
+                    l += speedX;
+                    t += speedY;
+
+
+                    //判断
+                    //据上位置大于最大高度
+                    if (t > maxY) {
+                        t = maxY;
+                        //纵坐标的速度取反 & 减速度
+                        speedY *= -0.8;
+                        //横坐标的速度也 减速
+                        speedX *= 0.8;
+                    }
+
+                    //据上位置小于0
+                    if (t < 0) {
+                        t = 0;
+                        //纵坐标的速度取反 & 减速度
+                        speedY *= -0.8;
+                    }
+
+                    //据左位置大于最大宽度
+                    if (l > maxX) {
+                        l = maxX;
+                        //纵坐标的速度取反 & 减速度
+                        speedX *= -0.8;
+                    }
+
+                    //据左位置大于最大宽度
+                    if (l < 0) {
+                        l = 0;
+                        //纵坐标的速度取反 & 减速度
+                        speedX *= -0.8;
+                    }
+
+                    obj.style.left = l + 'px';
+                    obj.style.top = t + 'px';
+
+
+                    //判断如果速度的绝对值 小于1 的话，默认速度为0
+                    if (Math.abs(speedX) < 1) { speedX = 0; }
+                    if (Math.abs(speedY) < 1) { speedY = 0; }
+
+                    //判断如果横纵坐标的速度等于0 & 高度等与最大高度
+                    if (speedX == 0 && speedY == 0 && t == maxY) {
+                        //关闭定时器
+                        clearInterval(obj.timer);
+                    }
+                }, 30);
+
+            }
+
+
+        }
+    </script>
+</head>
+<body>
+    <div id="box">
+    </div>
+</body>
+</html>

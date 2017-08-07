@@ -1,0 +1,59 @@
+﻿/*清除默认内外边距*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/*内容块样式*/
+div.main {
+    /*解决手机端1像素问题*/
+    padding-bottom: 1px;
+}
+
+.main div {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+
+    .main div.one {
+        background-color: #333;
+        background-image: url(../images/1.jpg);
+    }
+
+    .main div.two {
+        background-color: #666;
+        background-image: url(../images/2.jpg);
+    }
+
+    .main div.three {
+        background-color: #999;
+        background-image: url(../images/3.jpg);
+    }
+
+
+
+/*焦点按钮列表 样式*/
+.dList {
+    padding: 0;
+    position: fixed;
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    height: 110px;
+}
+    /*焦点按钮 样式*/
+    .dList li.dItem {
+        list-style: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+        margin: 10px;
+    }
+    /*焦点按钮 选中 样式*/
+    .dList li.active {
+        background-color: #007acc;
+    }

@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>模拟聊天窗口</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0,  user-scalable=no" />
+    <link href="css/index.css" rel="stylesheet" />
+    <script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="js/index.js"></script>
+</head>
+<body>
+    <div class="zxDetail">
+        <a class="zxrInfo clearfix">
+            <em class="fl">
+                与患者 诸葛钢铁 聊天中
+            </em>
+        </a>
+        <div class="talkWindow">
+            <!--对方聊天气泡-->
+            <div class="otherChat">
+                <div class="dateTime">2017-3-37 17:29</div>
+                <div class="bubble clearfix">
+                    <img class="fl" src="images/1.png" alt="Alternate Text" />
+                    <div class="chatContext fl clearfix">
+                        <div class="chatText fl">您好，晚上失眠多梦,早上精神不佳,睡眠不充经常咳嗽,早起恶心痰多，请问医生这是什么症状？</div>
+                    </div>
+                </div>
+                <div class="bubble clearfix">
+                    <img class="fl" src="images/1.png" alt="Alternate Text" />
+                    <div class="chatContext fl clearfix">
+                        <img class="fl" src="images/talk1.jpg" alt="Alternate Text" />
+                    </div>
+                </div>
+            </div>
+
+            <!--我聊天气泡-->
+            <div class="meChat">
+                <div class="dateTime">2017-3-37 17:29</div>
+                <div class="bubble clearfix">
+                    <img class="fr" src="images/2.png" alt="Alternate Text" />
+                    <div class="chatContext fr clearfix">
+                        <div class="chatText fr">睡眠出现问题时间多长了？入睡困难吗？</div>
+                    </div>
+                </div>
+                <div class="bubble clearfix">
+                    <img class="fr" src="images/2.png" alt="Alternate Text" />
+                    <div class="chatContext fr clearfix">
+                        <img class="fr" src="images/talk2.jpg" alt="Alternate Text" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="talkInput">
+            <img src="imaegs/getImg.png" alt="getImg" />
+            <!--<input id="sendText" type="text" name="name" placeholder="点击输入文字" />-->
+            <div class="textDiv" id="sendText" contenteditable="true"></div>
+            <span id="btnSend" class="submitBtn" onclick="send()">发送</span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>水平线性图片轮播</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 100%;
+            height: 300px;
+            background: #ccc;
+            margin-top: 100px;
+        }
+
+            #box ul {
+                zoom: 1;
+                height: 100%;
+                width: 200%;
+            }
+
+                #box ul:after {
+                    content: '';
+                    display: block;
+                    clear: both;
+                }
+
+                #box ul li {
+                    list-style: none;
+                    width: 100px;
+                    height: 70px;
+                    background: blue;
+                    float: left;
+                    margin-top: -35px;
+                    margin-right: 10px;
+                    position: relative;
+                    top: 50%;
+                }
+
+                    #box ul li.frist {
+                        
+                        margin-left: 6%;
+                    }
+
+                    #box ul li.cur {
+                        top: 0;
+                        margin-top: 0;
+                        width: 400px;
+                        height: 300px;
+                    }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <ul>
+            <li class="frist"><img src="images/1.jpg" width="100%" height="100%" alt="Alternate Text" /></li>
+            <li><img src="images/2.jpg" width="100%" height="100%" alt="Alternate Text" /></li>
+            <li><img src="images/3.jpg" width="100%" height="100%" alt="Alternate Text" /></li>
+            <li class="cur"><img src="images/4.jpg" width="100%" height="100%" alt="Alternate Text" /></li>
+            <li><img src="images/5.jpg" width="100%" height="100%" alt="Alternate Text" /></li>
+            <li><img src="images/6.jpg" width="100%" height="100%" alt="Alternate Text" /></li>
+            <li><img src="images/7.jpg" width="100%" height="100%" alt="Alternate Text" /></li>
+        </ul>
+    </div>
+
+    <script src="js/jquery-1.7.2.js"></script>
+    <script type="text/javascript">
+        $("#box ul li").click(function () {
+            var _index = $(this).index();
+            $(this).animate({
+                width: '400px',
+                height: '300px',
+                top: '0',
+                'margin-top': '0',
+            }, 1000).siblings().animate({
+                width: '100px',
+                height: '70px',
+                'margin-top': '-35px',
+                top: '50%',
+            }, 1000);
+
+            //父元素位移
+            $("#box ul").animate({
+                'margin-left': -(_index * 100-300) + 'px'
+            }, 1000)
+        })
+    </script>
+</body>
+</html>

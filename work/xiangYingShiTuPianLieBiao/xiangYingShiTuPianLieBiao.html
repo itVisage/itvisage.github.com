@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="响应式,列表,web前端" />
+    <meta name="description" content="响应式图片列表" />
+    <title>响应式图片列表</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #434343;
+        }
+
+        #wrap {
+            width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+            #wrap ul {
+                zoom: 1;
+            }
+
+                #wrap ul:after {
+                    display: block;
+                    content: '';
+                    clear: both;
+                }
+
+                #wrap ul li {
+                    width: 237px;
+                    height: 190px;
+                    list-style: none;
+                    margin: 10px;
+                    float: left;
+                    border-radius: 5px;
+                    box-shadow: 0 0 4px #fff; /*盒子阴影：1横向位移；2纵向位移；3扩散范围（影子大小）；4影子颜色*/
+                }
+
+                    #wrap ul li img {
+                        display: block;
+                        border-radius: 5px;
+                    }
+    </style>
+
+</head>
+<body>
+    <div id="wrap">
+        <ul>
+            <li>
+                <img src="images/1.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+            <li>
+                <img src="images/2.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+            <li>
+                <img src="images/3.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+            <li>
+                <img src="images/4.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+            <li>
+                <img src="images/5.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+            <li>
+                <img src="images/6.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+            <li>
+                <img src="images/7.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+            <li>
+                <img src="images/8.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+            <li>
+                <img src="images/9.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+            <li>
+                <img src="images/10.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+            <li>
+                <img src="images/11.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+            <li>
+                <img src="images/12.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+            <li>
+                <img src="images/13.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+            <li>
+                <img src="images/14.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+            <li>
+                <img src="images/15.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+            <li>
+                <img src="images/16.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+            <li>
+                <img src="images/17.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+            <li>
+                <img src="images/18.jpg" alt="Alternate Text" width="237" height="190" />
+            </li>
+
+        </ul>
+    </div>
+
+    <script src="js/jquery-1.7.2.js"></script>
+    <script type="text/javascript">
+        $(document).ready(
+            function () {
+                //总宽度÷个体宽度=个体数量
+
+                auto();
+
+
+
+            });
+        //当改变浏览器窗口大小的时候出发的事件
+        $(window).resize(function () {
+            
+            auto();
+        });
+        function auto() {
+            var $Wrap = $('#wrap');//获取图片列表父元素
+            var wW = $(window).width();//获取浏览器窗口的宽度
+            var wid = $Wrap.find('li').outerWidth(true);  //获取li 的实际宽度
+            var wW = $(window).width();
+
+            
+            num = Math.floor(wW / wid);
+            $Wrap.width(num * wid);
+            console.log($Wrap.width() + '-' + wW);
+        }
+    </script>
+</body>
+</html>
